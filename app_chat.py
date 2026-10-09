@@ -18,7 +18,20 @@ st.markdown(
         background-color: #FFFDF7;
         color: #3E2723;
     }
-    header {visibility: hidden;}
+    /* Mostrar el botón del sidebar y destacarlo */
+    [data-testid="stSidebarCollapseButton"], 
+    [data-testid="collapsedControl"] {
+        display: block !important;
+        visibility: visible !important;
+        position: fixed !important;
+        top: 12px !important;
+        left: 12px !important;
+        z-index: 99999 !important;
+        background-color: #D32F2F !important;
+        color: white !important;
+        border-radius: 8px !important;
+        padding: 4px !important;
+    }
     .header-banner {
         background-color: #D32F2F;
         padding: 20px;
