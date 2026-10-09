@@ -7,7 +7,7 @@ import streamlit as st
 
 # 1. Configuración de la ventana web
 st.set_page_config(
-    page_title="Tamales Melida", page_icon="🫔", layout="wide", initial_sidebar_state="auto", 
+    page_title="Tamales Melida", page_icon="🫔", layout="wide", initial_sidebar_state="auto" 
 )
 
 # 2. Estilos visuales personalizados (CSS)
