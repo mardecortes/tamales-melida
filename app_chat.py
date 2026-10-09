@@ -1,3 +1,4 @@
+import requests
 from datetime import datetime
 import io
 import time
@@ -196,6 +197,35 @@ with st.sidebar:
 
   # CUADRO DE CONFIRMACIÓN
   if st.session_state["mostrar_confirmacion"]:
+      # -------------------------------------------------------------
+    # Envío del pedido a Google Sheets
+    # -------------------------------------------------------------
+    WEBHOOK_URL = (
+        "https://script.google.com/macros/s/AKfycbysSHnDFF__Iv8IX4bXzLKY4TDZA_SEjpFELfP6Mc5ATd_CW2Z7MfTElH3tOChbsKyT/exec"
+    )
+
+    # Convertimos el diccionario/lista de sabores a texto para el resumen
+    resumen_sabores = str(cantidades_sabores)
+
+    payload = {
+        "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "cliente": nombre_cliente if nombre_cliente else "Cliente Anónimo",
+        "pedido": resumen_sabores,
+        "total_tamales": total_tamales,
+        "total_precio": total_precio,
+        "direccion": (
+            direccion_envio if direccion_envio else "Recoge en sucursal"
+        ),
+    }
+
+    try:
+        response = requests.post(WEBHOOK_URL, json=payload)
+        if response.status_code == 200:
+            st.success("🎉 ¡Tu pedido ha sido guardado en Google Sheets!")
+        else:
+            st.error("Hubo un problema al registrar el pedido en la hoja.")
+    except Exception as e:
+        st.error(f"Error de conexión con Google Sheets: {e}")
     st.markdown("---")
     st.info("📋 **Confirmar Pedido**")
     st.caption(
@@ -223,8 +253,12 @@ with st.sidebar:
 
     if st.button("❌ Cancelar", use_container_width=True):
       st.session_state["mostrar_confirmacion"] = False
-      st.rerun()
+      st.rerun(
+           
+    )
+    # Pon tu URL de Apps Script aquí
 
+    
   st.markdown("---")
   st.markdown("💳 **Métodos de pago aceptados:**")
   st.markdown(
