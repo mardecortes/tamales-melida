@@ -287,7 +287,10 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
-
+st.warning(
+    "↖️ **¿Quieres hacer un pedido?** Toca el botón **`>`** en la **esquina superior izquierda** para desplegar el cotizador.",
+    icon="🫔"
+)
 
 # 6. Chatbot
 def responder(mensaje):
